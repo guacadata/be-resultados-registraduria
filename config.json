@@ -1,0 +1,7 @@
+{
+  "url-backend": "127.0.0.1",
+  "port": 5000,
+  "database-url": "mongodb+srv://racalderong:RuB3UJuExJOC0DZU@cluster0.oy7dqvo.mongodb.net/?retryWrites=true&w=majority",
+  "database-name": "be-resultados"
+  
+}
