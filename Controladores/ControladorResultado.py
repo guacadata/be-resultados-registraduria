@@ -8,11 +8,12 @@ from Modelos.Mesa import Mesa
 
 class ControladorResultado():
     def __init__(self):
+        print("Creando Controlador Resultado")
         self.repositorioResultado = RepositorioResultado()
         self.repositorioCandidato = RepositorioCandidato()
         self.repositorioMesa = RepositorioMesa()
 
-    def index(self): 
+    def mostrarResultados(self): 
         return self.repositorioResultado.findAll()
 
     def crearResultado(self, infoResultado, id_mesa, id_candidato):
