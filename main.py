@@ -2,14 +2,14 @@ from crypt import methods
 from flask import Flask, request, Response
 from flask import jsonify
 from flask_cors import CORS
-import json
-from waitress import serve  
+from waitress import serve
 
 from Controladores.ControladorMesa import ControladorMesa
 from Controladores.ControladorCandidato import ControladorCandidato
 from Controladores.ControladorPartido import ControladorPartido
 from Controladores.ControladorResultado import ControladorResultado
 
+import json
 import pymongo
 import certifi
 
