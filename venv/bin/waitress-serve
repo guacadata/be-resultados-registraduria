@@ -1,4 +1,4 @@
-#!/Users/rubencalderongarcia/Documents/Estudio/registraduria-be/venv/bin/python
+#!/Users/rubencalderongarcia/Documents/Estudio/registraduria-be/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

@@ -1,44 +1,48 @@
-from Repositorios.RepositorioResultado import RepositorioRsultado
+from Repositorios.RepositorioResultado import RepositorioResultado
 from Repositorios.RepositorioMesa import RepositorioMesa
 from Repositorios.RepositorioCandidato import RepositorioCandidato
+
 from Modelos.Resultado import Resultado
-from Modelos.Mesa import Mesa
 from Modelos.Candidato import Candidato
+from Modelos.Mesa import Mesa
 
 class ControladorResultado():
     def __init__(self):
-        print("Creando Controlador Materia")
-        self.repositorioDepartamento = RepositorioDepartamento()
-        self.repositorioMateria = RepositorioMateria()
+        self.repositorioResultado = RepositorioResultado()
+        self.repositorioCandidato = RepositorioCandidato()
+        self.repositorioMesa = RepositorioMesa()
 
-    def crear(self, infoMateria):
-        print("Crear una materia")
-        materia = Materia(infoMateria)
-        return self.repositorioMateria.save(materia)
+    def index(self): 
+        return self.repositorioResultado.findAll()
 
-    def mostrarMateria(self, id):
-        print("Mostrando la materia con id: "+id)
-        materia = Materia(self.repositorioMateria.findById(id))
-        return materia.__dict__
+    def crearResultado(self, infoResultado, id_mesa, id_candidato):
+        nuevoResultado = Resultado(infoResultado)
+        laMesa = Mesa(self.repositorioMesa.findById(id_mesa))
+        elCandidato = Candidato(self.repositorioCandidato.findById(id_candidato))
+        nuevoResultado.mesa = laMesa
+        nuevoResultado.candidato = elCandidato
+        return self.repositorioResultado.save(nuevoResultado)
 
-    def mostrarMaterias(self):
-        print("Mostrando todas las materias")
-        return self.repositorioMateria.findAll()
+    def mostrarResultado(self, id):
+        elResultado = Resultado(self.repositorioResultado.findById(id))
+        return elResultado.__dict__
 
-    def actualizar(self,id,infoMateria):
-        print("Actualizando la materia con id: "+id)
-        materiaActual = Materia(self.repositorioMateria.findById(id))
-        materiaActual.nombre = infoMateria["nombre"]
-        materiaActual.creditos = infoMateria["creditos"]
-        return self.repositorioMateria.save(materiaActual)
+    def actualizarResultado(self, id, infoResultado, id_mesa, id_candidato):
+        elResultado = Resultado(self.repositorioResultado.findById(id))
+        laMesa = Mesa(self.repositorioMesa.findById(id_mesa))
+        elCandidato = Candidato(self.repositorioCandidato.findById(id_candidato))
+        elResultado.mesa = laMesa
+        elResultado.candidato = elCandidato
+        return self.repositorioResultado.save(elResultado)
 
-    def eliminar(self,id):
-        print("eliminando la materia con id: "+id)
-        return self.repositorioMateria.delete(id)
+    def eliminarResultado(self, id):
+        return self.repositorioResultado.delete(id)
 
-    #Relación entre materia y departamento
-    def asignarDepartamento(self,id, id_departamento):
-        materiaActual = Materia(self.repositorioMateria.findById(id))
-        departamentoActual = Departamento(self.repositorioDepartamento.findById(id_departamento))
-        materiaActual.departamento = departamentoActual
-        return self.repositorioMateria.save(materiaActual)
+    def getListarCandidatosMesa(self, id_mesa):
+        return self.repositorioResultado.getListadoCandidatosInscritosMesa(id_mesa)
+
+    def getListarMesasDeInscritoCandidato(self, id_candidato):
+        return self.repositorioResultado.getListadoMesasCandidatoInscrito(id_candidato)
+
+    def getMayorCedula(self):
+        return self.repositorioResultado.getNumeroCedulaMayorCandidato()
