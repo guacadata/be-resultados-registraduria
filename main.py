@@ -2,6 +2,8 @@ from crypt import methods
 from flask import Flask, request, Response
 from flask import jsonify
 from flask_cors import CORS
+import json
+from waitress import serve  
 
 from Controladores.ControladorMesa import ControladorMesa
 from Controladores.ControladorCandidato import ControladorCandidato
@@ -173,6 +175,7 @@ def inscritoEnMesas(id_candidato):
 def getMaxDocument():
     json = miControladorResultado.getMayorCedula()
     return jsonify(json)
+
 
 def loadFileConfig():
     with open('config.json') as f:
